@@ -1,0 +1,35 @@
+RGB to hex
+
+RGBA to hex
+
+
+hex to rgb
+
+hex to rgba
+
+
+
+rgb to hsl
+
+rgba to hsla
+
+
+
+hsl to rgb
+
+hsla to rgba
+
+
+
+hex to hsl
+
+
+hex to hsla
+
+
+hsl to hex
+
+hsla to hex
+
+
+---------   Validation   ---------------
