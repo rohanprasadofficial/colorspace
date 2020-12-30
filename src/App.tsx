@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import ColorPicker from './components/ColorPicker';
+import InputField from './components/InputFields';
 interface ColorSpaceInterface {
     title: string;
     code: string;
@@ -10,10 +10,10 @@ const App: React.FC = () => {
     const ColorSpaces: ColorSpaceInterface[] = [
         { title: 'HEX', code: 'hex' },
         { title: 'RGB', code: 'rgb' },
-        { title: 'RGBA', code: 'rgba' },
         { title: 'HSL', code: 'hsl' },
-        { title: 'HSLA', code: 'hsla' },
     ];
+
+    const [spaceActive, setSpaceActive] = useState<ColorSpaceInterface>({ title: 'HEX', code: 'hex' });
 
     return (
         <StyledApp>
@@ -43,16 +43,7 @@ const App: React.FC = () => {
                 </div>
 
                 <div className="main__inputs">
-                    <input
-                        type="text"
-                        className="main__inputs--hex"
-                        id="color-picker-page_input"
-                        spellCheck="true"
-                        placeholder="A5B28F"
-                    />
-
-                    <ColorPicker />
-                    <span className="main__inputs--color"></span>
+                    <InputField key={spaceActive.code} code={spaceActive.code} />
                 </div>
             </section>
         </StyledApp>
