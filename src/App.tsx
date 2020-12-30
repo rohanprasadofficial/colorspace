@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ColorPicker from './components/ColorPicker';
-import { HexToRGB } from './utils/converter';
+import { HSLAToRGBA, HSLToRGB } from './utils/converter';
 interface ColorSpaceInterface {
     title: string;
     code: string;
@@ -15,9 +15,8 @@ const App: React.FC = () => {
         { title: 'HSL', code: 'hsl' },
         { title: 'HSLA', code: 'hsla' },
     ];
-
-    console.log(HexToRGB('c59b9b'));
-
+    console.log(HSLToRGB(254, 87.4, '56.3%'));
+    console.log(HSLAToRGBA(254, 87.4, '56.3%', 0.5));
     return (
         <StyledApp>
             <nav className="navbar">
