@@ -32,7 +32,7 @@ export const RGBAtoHex = (r: number, g: number, b: number, a: number): string =>
     return '#' + rS + gS + bS + aS;
 };
 
-export const HexToRGB = (h: string): string => {
+export const HexToRGB = (h: string, flag = false): string | number[] => {
     if (!h.startsWith('#')) {
         h = '#' + h;
     }
@@ -52,8 +52,8 @@ export const HexToRGB = (h: string): string => {
         g = '0x' + h[3] + h[4];
         b = '0x' + h[5] + h[6];
     }
-
-    return 'rgb(' + +r + ',' + +g + ',' + +b + ')';
+    if (flag) return [+r, +g, +b];
+    else return 'rgb(' + +r + ',' + +g + ',' + +b + ')';
 };
 
 export const RGBToHSL = (r: number, g: number, b: number, flag = false): string | number[] => {
@@ -154,4 +154,63 @@ export const HSLToRGB = (h: number, s: string | number, l: string | number, flag
 export const HSLAToRGBA = (h: number, s: string | number, l: string | number, a: number): string => {
     const rR = HSLToRGB(h, s, l, true);
     return 'rgba(' + rR[0] + ',' + rR[1] + ',' + rR[2] + ',' + a + ')';
+};
+
+export const HEXToHSL = (H: string): string => {
+    // Convert hex to RGB first
+    console.log('HEX  ' + H);
+    const iR = HexToRGB(H, true);
+    console.log('iR  ' + iR);
+    // console.log(('SHS ' + RGBToHSL(iR[0], iR[1], iR[2])) as string);
+    return RGBToHSL(iR[0] as number, iR[1] as number, iR[2] as number) as string;
+    // return 'hsl(' + h + ',' + s + '%,' + l + '%)';
+};
+
+export const HSLToHEX = (h: number, s: number | string, l: number | string): string => {
+    s = (s as number) / 100;
+    l = (l as number) / 100;
+
+    const c = (1 - Math.abs(2 * l - 1)) * s,
+        x = c * (1 - Math.abs(((h / 60) % 2) - 1)),
+        m = l - c / 2;
+    let r = 0,
+        g = 0,
+        b = 0;
+
+    if (0 <= h && h < 60) {
+        r = c;
+        g = x;
+        b = 0;
+    } else if (60 <= h && h < 120) {
+        r = x;
+        g = c;
+        b = 0;
+    } else if (120 <= h && h < 180) {
+        r = 0;
+        g = c;
+        b = x;
+    } else if (180 <= h && h < 240) {
+        r = 0;
+        g = x;
+        b = c;
+    } else if (240 <= h && h < 300) {
+        r = x;
+        g = 0;
+        b = c;
+    } else if (300 <= h && h < 360) {
+        r = c;
+        g = 0;
+        b = x;
+    }
+    // Having obtained RGB, convert channels to hex
+    let rS = Math.round((r + m) * 255).toString(16);
+    let gS = Math.round((g + m) * 255).toString(16);
+    let bS = Math.round((b + m) * 255).toString(16);
+
+    // Prepend 0s, if necessary
+    if (rS.length == 1) rS = '0' + rS;
+    if (gS.length == 1) gS = '0' + gS;
+    if (bS.length == 1) bS = '0' + bS;
+
+    return '#' + rS + gS + bS;
 };
