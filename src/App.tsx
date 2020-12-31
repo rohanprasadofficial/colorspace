@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { EventHandler, FormEventHandler, useState } from 'react';
 import styled from 'styled-components';
 import InputField from './components/InputFields';
 interface ColorSpaceInterface {
@@ -13,8 +13,11 @@ const App: React.FC = () => {
         { title: 'HSL', code: 'hsl' },
     ];
 
-    const [spaceActive, setSpaceActive] = useState<ColorSpaceInterface>({ title: 'HEX', code: 'hex' });
+    const [spaceActive, setSpaceActive] = useState<ColorSpaceInterface | null>(null);
 
+    const spaceSelected = (e: React.FormEvent<HTMLSelectElement>) => {
+        setSpaceActive({ title: '', code: e.currentTarget.value });
+    };
     return (
         <StyledApp>
             <nav className="navbar">
@@ -31,7 +34,19 @@ const App: React.FC = () => {
                         you have
                     </label>
 
-                    <select className="main__options--selector" name="options" id="options">
+                    <select
+                        onChange={spaceSelected}
+                        className="main__options--selector"
+                        defaultValue="na"
+                        name="options"
+                        id="options"
+                    >
+                        {!spaceActive && (
+                            <option value="na" disabled>
+                                Select Space
+                            </option>
+                        )}
+
                         {ColorSpaces.map((colorSpace) => {
                             return (
                                 <option key={colorSpace.code} value={colorSpace.code}>
@@ -43,7 +58,7 @@ const App: React.FC = () => {
                 </div>
 
                 <div className="main__inputs">
-                    <InputField key={spaceActive.code} code={spaceActive.code} />
+                    {spaceActive && <InputField key={spaceActive.code} code={spaceActive.code} />}
                 </div>
             </section>
         </StyledApp>

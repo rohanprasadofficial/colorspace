@@ -1,6 +1,8 @@
 import React from 'react';
 
 import { HexSpace } from './spaces/HexSpace';
+import { HSLSpace } from './spaces/HSLSpace';
+import { RGBSpace } from './spaces/RGBSpace';
 interface InputFieldsProps {
     code: string;
 }
@@ -11,10 +13,10 @@ const InputFields: React.FC<InputFieldsProps> = (props: InputFieldsProps) => {
             return <HexSpace />;
         }
         case 'rgb': {
-            return <p>Hello i am rgb</p>;
+            return <RGBSpace />;
         }
         case 'hsl': {
-            return <p>Hello i am hsl</p>;
+            return <HSLSpace />;
         }
         default: {
             return <p>please select a code</p>;
