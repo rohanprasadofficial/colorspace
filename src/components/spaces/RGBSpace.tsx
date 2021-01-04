@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { HEXToHSL, SRGBtoRGB, RGBtoHex } from '../../utils/converter';
+import { SRGBtoRGB, RGBtoHex, RGBToHSL } from '../../utils/converter';
 
 export const RGBSpace: React.FC = () => {
     const [input, setInput] = useState<string>('');
@@ -13,12 +13,13 @@ export const RGBSpace: React.FC = () => {
 
     const injectValues = (pR = R, pG = G, pB = B) => {
         setHex(RGBtoHex(pR, pG, pB));
-        // setHSL(HEXToHSL(value));
+        setHSL(RGBToHSL(pR, pG, pB).toString());
     };
 
     const stringToValues = (value: string) => {
         const res = SRGBtoRGB(value);
         setHex(RGBtoHex(parseFloat(res[0]), parseFloat(res[1]), parseFloat(res[2])));
+        setHSL(RGBToHSL(parseFloat(res[0]), parseFloat(res[1]), parseFloat(res[2])).toString());
     };
     return (
         <StyledSpace>

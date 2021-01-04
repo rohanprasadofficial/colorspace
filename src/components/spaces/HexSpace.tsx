@@ -5,9 +5,6 @@ export const HexSpace: React.FC = () => {
     const [input, setInput] = useState<string>('');
     const [rbg, setRgb] = useState<string>('');
     const [hsl, setHSL] = useState<string>('');
-    const onConvert = () => {
-        console.log('Onchange');
-    };
 
     const injectValues = (value: string) => {
         setRgb(HexToRGB(value) as string);
@@ -25,8 +22,6 @@ export const HexSpace: React.FC = () => {
                     injectValues(e.target.value);
                 }}
             />
-            <button onClick={onConvert}>Convert</button>
-            {input}
 
             <div>
                 {rbg ? (

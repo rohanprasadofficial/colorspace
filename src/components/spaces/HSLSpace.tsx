@@ -1,47 +1,93 @@
 import React, { useState } from 'react';
-import { HEXToHSL, HexToRGB } from '../../utils/converter';
+import styled from 'styled-components';
+import { SRGBtoRGB, HSLToHEX, HSLToRGB } from '../../utils/converter';
 
 export const HSLSpace: React.FC = () => {
     const [input, setInput] = useState<string>('');
-    const [rbg, setRgb] = useState<string>('');
-    const [hsl, setHSL] = useState<string>('');
+    const [hex, setHex] = useState<string>('');
+    const [rgb, setRGB] = useState<string>('');
 
-    const injectValues = (value: string) => {
-        setRgb(HexToRGB(value) as string);
-        setHSL(HEXToHSL(value));
+    const [H, setH] = useState(0);
+    const [S, setS] = useState(0);
+    const [L, setL] = useState(0);
+
+    const injectValues = (pR = H, pG = S, pB = L) => {
+        setHex(HSLToHEX(pR, pG, pB));
+        setRGB(HSLToRGB(pR, pG, pB).toString());
+    };
+
+    const stringToValues = (value: string) => {
+        const res = SRGBtoRGB(value);
+        setHex(HSLToHEX(parseFloat(res[0]), parseFloat(res[1]), parseFloat(res[2])));
+        setRGB(HSLToRGB(parseFloat(res[0]), parseFloat(res[1]), parseFloat(res[2])).toString());
     };
 
     return (
-        <div>
-            <p>HSL</p>
+        <StyledSpace>
             <p style={{ marginBottom: '1rem' }}>code </p>
             <input
+                className="input"
                 type="text"
-                placeholder="#FFFFFF"
+                placeholder="H"
                 onChange={(e) => {
-                    setInput(e.target.value);
-                    injectValues(e.target.value);
+                    setH(parseFloat(e.target.value));
+                    injectValues(parseFloat(e.target.value), S, L);
                 }}
             />
-            {input}
+            <input
+                className="input"
+                type="text"
+                placeholder="S"
+                onChange={(e) => {
+                    setS(parseFloat(e.target.value));
+                    injectValues(H, parseFloat(e.target.value), L);
+                }}
+            />
+            <input
+                className="input"
+                type="text"
+                placeholder="L"
+                onChange={(e) => {
+                    setL(parseFloat(e.target.value));
+                    injectValues(H, S, parseFloat(e.target.value));
+                }}
+            />
 
+            <p style={{ margin: '1rem 0' }}>paste string </p>
+            <input
+                style={{ width: '10rem', padding: '0.5rem' }}
+                type="text"
+                placeholder="hsl(0,0%,0%)"
+                onChange={(e) => {
+                    setInput(e.target.value);
+                    stringToValues(e.target.value);
+                }}
+            />
             <div>
-                {rbg ? (
+                {hex ? (
                     <div>
-                        <h2>RGB</h2> <p>{rbg}</p>
+                        <h2>HEX</h2> <p>{hex}</p>
                     </div>
                 ) : (
                     ''
                 )}
 
-                {hsl ? (
+                {rgb ? (
                     <div>
-                        <h2>HSL</h2> <p>{hsl}</p>
+                        <h2>RGB</h2> <p>{rgb}</p>
                     </div>
                 ) : (
                     ''
                 )}
             </div>
-        </div>
+        </StyledSpace>
     );
 };
+
+const StyledSpace = styled.section`
+    .input {
+        width: 5rem;
+        padding: 0.5rem;
+        margin-right: 0.5rem;
+    }
+`;

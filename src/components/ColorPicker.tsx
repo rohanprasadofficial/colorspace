@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { ChromePicker, ColorResult } from 'react-color';
 
 const ColorPicker: React.FC = () => {
-    const [displayColorPicker, setDisplayColorPicker] = useState<boolean>(false);
-    const [background, setBackground] = useState<string>('#ffffff');
+    const [displayColorPicker, setDisplayColorPicker] = useState<boolean>(true);
+    const [background, setBackground] = useState<string>('red');
 
     const handleChangeComplete = (color: ColorResult) => {
         setBackground(color.hex);

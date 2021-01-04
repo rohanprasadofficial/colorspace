@@ -1,4 +1,4 @@
-import React, { EventHandler, FormEventHandler, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import InputField from './components/InputFields';
 interface ColorSpaceInterface {
@@ -23,6 +23,7 @@ const App: React.FC = () => {
             <nav className="navbar">
                 <p>colors</p>
             </nav>
+
             <section className="main">
                 <div className="main__desc">
                     <h1 className="main__desc--title">convert colors from one to another</h1>
@@ -59,6 +60,8 @@ const App: React.FC = () => {
 
                 <div className="main__inputs">
                     {spaceActive && <InputField key={spaceActive.code} code={spaceActive.code} />}
+
+                    <section style={{ backgroundColor: 'red' }}>sdcs</section>
                 </div>
             </section>
         </StyledApp>
