@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { SRGBtoRGB, RGBtoHex, RGBToHSL } from '../../utils/converter';
 
@@ -11,8 +11,16 @@ export const RGBSpace: React.FC = () => {
     const [G, setG] = useState(0);
     const [B, setB] = useState(0);
 
+    const colorRef = useRef<HTMLElement>(null);
+
     const injectValues = (pR = R, pG = G, pB = B) => {
-        setHex(RGBtoHex(pR, pG, pB));
+        const value = RGBtoHex(pR, pG, pB);
+        !value.startsWith('#') && value != ''
+            ? // eslint-disable-next-line
+              (colorRef.current!.style.backgroundColor = `#${value}`)
+            : // eslint-disable-next-line
+              (colorRef.current!.style.backgroundColor = `${value}`);
+        setHex(value);
         setHSL(RGBToHSL(pR, pG, pB).toString());
     };
 
@@ -51,6 +59,7 @@ export const RGBSpace: React.FC = () => {
                     injectValues(R, G, parseFloat(e.target.value));
                 }}
             />
+            <h3 style={{ margin: '1.5rem 0', color: 'gray' }}>OR</h3>
 
             <p style={{ margin: '1rem 0' }}>paste string </p>
             <input
@@ -62,10 +71,14 @@ export const RGBSpace: React.FC = () => {
                     stringToValues(e.target.value);
                 }}
             />
-            <div>
+            <br />
+            <br />
+            <hr />
+            <section ref={colorRef} className="color-demo"></section>
+            <StyledResDiv>
                 {hex ? (
                     <div>
-                        <h2>HEX</h2> <p>{hex}</p>
+                        <h3 className="title">HEX</h3> <p>{hex}</p>
                     </div>
                 ) : (
                     ''
@@ -73,12 +86,12 @@ export const RGBSpace: React.FC = () => {
 
                 {hsl ? (
                     <div>
-                        <h2>HSL</h2> <p>{hsl}</p>
+                        <h3 className="title">HSL</h3> <p>{hsl}</p>
                     </div>
                 ) : (
                     ''
                 )}
-            </div>
+            </StyledResDiv>
         </StyledSpace>
     );
 };
@@ -88,5 +101,23 @@ const StyledSpace = styled.section`
         width: 5rem;
         padding: 0.5rem;
         margin-right: 0.5rem;
+    }
+    .color-demo {
+        background-color: 'white';
+        width: 100%;
+        height: 2rem;
+        border-radius: 0.5rem;
+        margin-top: 1rem;
+        border: 1px solid black;
+    }
+`;
+
+const StyledResDiv = styled.div`
+    padding: 1rem 0;
+    color: gray;
+    .title {
+        margin: 0.5rem 0;
+        color: black;
+        margin-top: 2rem;
     }
 `;

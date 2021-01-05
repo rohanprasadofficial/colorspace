@@ -60,8 +60,6 @@ const App: React.FC = () => {
 
                 <div className="main__inputs">
                     {spaceActive && <InputField key={spaceActive.code} code={spaceActive.code} />}
-
-                    <section style={{ backgroundColor: 'red' }}>sdcs</section>
                 </div>
             </section>
         </StyledApp>
