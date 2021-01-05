@@ -27,7 +27,7 @@ export const HexSpace: React.FC = () => {
                     type="text"
                     placeholder="#FFFFFF"
                     onChange={(e) => {
-                        const ex = /^#([\da-f]{3}){1,2}$/i;
+                        const ex = /^#?([\da-f]{3}){1,2}$/i;
                         if (!ex.test(e.target.value) && e.target.value.length) {
                             setIsValid(false);
                             warningRef.current!.style.display = 'block';

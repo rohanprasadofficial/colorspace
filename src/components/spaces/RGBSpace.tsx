@@ -48,7 +48,7 @@ export const RGBSpace: React.FC = () => {
             <p style={{ marginBottom: '1rem' }}>code </p>
             <input
                 className="input"
-                type="text"
+                type="number"
                 placeholder="R"
                 onChange={(e) => {
                     setR(parseFloat(e.target.value));
@@ -69,7 +69,7 @@ export const RGBSpace: React.FC = () => {
             />
             <input
                 className="input"
-                type="text"
+                type="number"
                 placeholder="G"
                 onChange={(e) => {
                     setG(parseFloat(e.target.value));
@@ -90,7 +90,7 @@ export const RGBSpace: React.FC = () => {
             />
             <input
                 className="input"
-                type="text"
+                type="number"
                 placeholder="B"
                 onChange={(e) => {
                     setB(parseFloat(e.target.value));
@@ -139,7 +139,7 @@ export const RGBSpace: React.FC = () => {
                 }}
             />
             <span style={{ paddingLeft: '1rem' }} ref={stringInputRef} className="warning">
-                wrongly formatted hex code
+                wrongly formatted rgb code
             </span>
             <br />
             <br />

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import InputField from './components/InputFields';
+import Footer from './components/Footer';
 interface ColorSpaceInterface {
     title: string;
     code: string;
@@ -21,7 +22,7 @@ const App: React.FC = () => {
     return (
         <StyledApp>
             <nav className="navbar">
-                <p>colors</p>
+                <p>color spaces</p>
             </nav>
 
             <section className="main">
@@ -62,6 +63,7 @@ const App: React.FC = () => {
                     {spaceActive && <InputField key={spaceActive.code} code={spaceActive.code} />}
                 </div>
             </section>
+            <Footer />
         </StyledApp>
     );
 };
