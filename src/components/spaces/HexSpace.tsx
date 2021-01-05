@@ -28,16 +28,14 @@ export const HexSpace: React.FC = () => {
                     placeholder="#FFFFFF"
                     onChange={(e) => {
                         const ex = /^#([\da-f]{3}){1,2}$/i;
-                        if (ex.test(e.target.value)) {
+                        if (!ex.test(e.target.value) && e.target.value.length) {
+                            setIsValid(false);
+                            warningRef.current!.style.display = 'block';
+                        } else {
                             warningRef.current!.style.display = 'none';
-
-                            // Logic to convert RGB to hex
                             setInput(e.target.value);
                             injectValues(e.target.value);
                             setIsValid(true);
-                        } else {
-                            setIsValid(false);
-                            warningRef.current!.style.display = 'block';
                         }
                     }}
                 />
