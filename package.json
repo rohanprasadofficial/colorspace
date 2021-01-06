@@ -1,7 +1,9 @@
 {
-    "name": "colors",
+    "name": "colorspace",
     "version": "0.1.0",
-    "private": true,
+    "private": false,
+    "author": "Rohan Prasad <rohanpd.work@gmail.com>",
+    "description": "convert colors from one to another , super quick",
     "dependencies": {
         "@testing-library/jest-dom": "^5.11.4",
         "@testing-library/react": "^11.1.0",
@@ -45,6 +47,21 @@
             "last 1 safari version"
         ]
     },
+    "keywords": [
+        "color space convertor",
+        "rgb to hex",
+        "Rohan",
+        "Rohan Youtube",
+        "color convertor"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/rohanprasadofficial/colors-web"
+    },
+    "bugs": {
+        "url": "https://github.com/rohanprasadofficial/colors-web/issues"
+    },
+    "license": "MIT",
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^4.11.0",
         "@typescript-eslint/parser": "^4.11.0",
